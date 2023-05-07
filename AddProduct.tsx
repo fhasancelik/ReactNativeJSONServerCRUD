@@ -43,9 +43,10 @@ const AddProduct = () => {
 
     
           <SafeAreaView>
-            <View>
-              <Text>addProducts Page</Text>
-            </View>
+                  <Appbar.Header>
+          <Appbar.Content title="Add Product" />
+       
+        </Appbar.Header>
             <View style={{marginHorizontal: 25, marginVertical: 15, gap: 15}}>
             
     

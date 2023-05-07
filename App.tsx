@@ -1,14 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import type {PropsWithChildren} from 'react';
-import {Appbar, Card, ProgressBar, MD3Colors, Button} from 'react-native-paper';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-} from 'react-native';
+
+import {StyleSheet} from 'react-native';
 import AddProducts from './AddProduct';
 import {NavigationContainer} from '@react-navigation/native';
 import {
@@ -17,7 +9,9 @@ import {
 } from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import axios from 'axios';
-import {FlatList} from 'react-native-gesture-handler';
+
+import ListProducts from './ListProducts';
+import DetailProduct from './DetailProduct';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -41,70 +35,17 @@ export interface ProductProps {
 }
 
 function App(): JSX.Element {
-  const [products, setProducts] = useState<ProductProps | null>(null);
-
-
-
-  const axiosGetProducts = async () => {
-    const response = await axiosInstance.get('products');
-    const data = response.data;
-    //console.log(data)
-    setProducts(data);
-    //console.log(products)
-  };
-
-  function Products() {
-    return (
-      <SafeAreaView style={{flex: 1}}>
-        <Appbar.Header>
-          <Appbar.Content title="Our Producst" />
-          <Appbar.Action icon="delete" onPress={() => setProducts([])} />
-          <Appbar.Action icon="reload" onPress={() => axiosGetProducts()} />
-        </Appbar.Header>
-        <View style={{flex: 1}}>
-          <FlatList
-            data={products}
-            ListEmptyComponent={() => {
-              return (
-                <View>
-                  <ProgressBar progress={0.5} color={MD3Colors.error50} />
-                  <Text>Data Not Found</Text>
-                </View>
-              );
-            }}
-            renderItem={({item}) => {
-              return (
-                <Card.Title
-                  title={item.title}
-                  subtitle={item.description}
-                  left={props => (
-                    <Image
-                      style={styles.tinyLogo}
-                      source={{
-                        uri: `${item.thumbnail}`,
-                      }}
-                    />
-                  )}
-                  right={props => <Text>{item.price} $</Text>}
-                />
-              );
-            }}
-          />
-        </View>
-      </SafeAreaView>
-    );
-  }
-
-
   function TabBar() {
     return (
       <Tab.Navigator>
-        <Tab.Screen name="AddProducts" component={AddProducts} />
-        <Tab.Screen
+          <Tab.Screen
           name="Products"
-          component={Products}
+          component={ListProducts}
           options={{headerShown: false}}
         />
+        <Tab.Screen name="AddProducts" component={AddProducts} options={{headerShown: false}}/>
+      
+
       </Tab.Navigator>
     );
   }
@@ -130,17 +71,20 @@ function App(): JSX.Element {
   //     }
   //   };
 
-  useEffect(() => {
-    //fetchProducts();
-    axiosGetProducts();
-  }, []);
-
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
           name="TabBar"
           component={TabBar}
+          options={{headerShown: false}}
+        />
+
+
+<Stack.Screen
+          name="DetailProduct"
+          component={DetailProduct}
+
           options={{headerShown: false}}
         />
       </Stack.Navigator>
