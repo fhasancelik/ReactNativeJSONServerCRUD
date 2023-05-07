@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import type {PropsWithChildren} from 'react';
-import {Appbar} from 'react-native-paper';
+import {Appbar,Card,Avatar,IconButton} from 'react-native-paper';
 import {
   SafeAreaView,
   ScrollView,
@@ -9,6 +9,8 @@ import {
   Text,
   useColorScheme,
   View,
+  Image,
+  
 } from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -17,72 +19,124 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
+import axios from 'axios';
+import { FlatList } from 'react-native-gesture-handler';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-function Products() {
-  return (
-    <SafeAreaView>
-      <Appbar.Header>
-        <Appbar.Content title="Our Producst" />
-      </Appbar.Header>
-      <View></View>
-    </SafeAreaView>
-  );
-}
 
-function AddProducts() {
-  return (
-    <SafeAreaView>
-      <View>
-        <Text>addProducts Page</Text>
-      </View>
-    </SafeAreaView>
-  );
-}
+const axiosInstance=axios.create({
+  baseURL:'http://localhost:3000/'
+})
 
-function TabBar() {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen
-        name="Products"
-        component={Products}
-        options={{headerShown: false}}
-      />
-      <Tab.Screen name="AddProducts" component={AddProducts} />
-    </Tab.Navigator>
-  );
-}
+
+
+
 
 function App(): JSX.Element {
 
 
-  const fetchProducts = async () => {
-    try {
-      const response=await fetch('http://localhost:3000/products', {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
+
+  const [products,setProducts]=useState([])
+
+const axiosGetProducts=async()=>{
+ const response =await axiosInstance.get('products')
+const data=response.data
+//console.log(data)
+setProducts(data)
+//console.log(products)
+
+ 
+}
+
+
+  function Products() {
+    return (
+      <SafeAreaView>
+        <Appbar.Header>
+          <Appbar.Content title="Our Producst" />
+        </Appbar.Header>
+        <View><FlatList 
+        
+        data={products}
+        renderItem={({item})=>{
+          return(
+            <Card.Title
+            title={item.title}
+            subtitle={item.description}
+            
+            left={(props) =>    <Image
+              style={styles.tinyLogo}
+              source={{
+                uri: `${item.thumbnail}` ,
+              }}
+            />}
+
+right={(props)=><Text>{item.price} $</Text>}
+
+
+          />
+          )
+
+        }}
+        
+        
+        /></View>
+      </SafeAreaView>
+    );
+  }
   
-      //console.log(JSON.stringify(response,null,4))
+  function AddProducts() {
+    return (
+      <SafeAreaView>
+        <View>
+          <Text>addProducts Page</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
 
-const data=await response.json()
-//console.log(data[0].brand)
+  function TabBar() {
+    return (
+      <Tab.Navigator>
+        <Tab.Screen
+          name="Products"
+          component={Products}
+          options={{headerShown: false}}
+        />
+        <Tab.Screen name="AddProducts" component={AddProducts} />
+      </Tab.Navigator>
+    );
+  }
 
 
-    } catch (error) {
+//   const fetchProducts = async () => {
+//     try {
+//       const response=await fetch('http://localhost:3000/products', {
+//         method: 'GET',
+//         headers: {
+//           Accept: 'application/json',
+//           'Content-Type': 'application/json',
+//         },
+//       });
+  
+//       //console.log(JSON.stringify(response,null,4))
+
+// const data=await response.json()
+// //console.log(data[0].brand)
 
 
-      console.log('Error Message :' + error)
-    }
-  };
+//     } catch (error) {
+
+
+//       console.log('Error Message :' + error)
+//     }
+//   };
 
   useEffect(() => {
-    fetchProducts();
+    //fetchProducts();
+    axiosGetProducts()
   }, []);
 
   return (
@@ -97,5 +151,13 @@ const data=await response.json()
     </NavigationContainer>
   );
 }
+
+
+const styles=StyleSheet.create({
+  tinyLogo: {
+    width: 50,
+    height: 50,
+  },
+})
 
 export default App;
