@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import type {PropsWithChildren} from 'react';
-import { Appbar } from 'react-native-paper';
+import {Appbar} from 'react-native-paper';
 import {
   SafeAreaView,
   ScrollView,
@@ -20,16 +20,14 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
+
 function Products() {
   return (
     <SafeAreaView>
-          <Appbar.Header>
-       <Appbar.Content title="Our Producst" />
-    </Appbar.Header>
-      <View>
-  
-      
-      </View>
+      <Appbar.Header>
+        <Appbar.Content title="Our Producst" />
+      </Appbar.Header>
+      <View></View>
     </SafeAreaView>
   );
 }
@@ -37,9 +35,7 @@ function Products() {
 function AddProducts() {
   return (
     <SafeAreaView>
-     
       <View>
-    
         <Text>addProducts Page</Text>
       </View>
     </SafeAreaView>
@@ -49,14 +45,46 @@ function AddProducts() {
 function TabBar() {
   return (
     <Tab.Navigator>
-       <Tab.Screen name="Products" component={Products} options={{headerShown:false}}/>
+      <Tab.Screen
+        name="Products"
+        component={Products}
+        options={{headerShown: false}}
+      />
       <Tab.Screen name="AddProducts" component={AddProducts} />
-     
     </Tab.Navigator>
   );
 }
 
 function App(): JSX.Element {
+
+
+  const fetchProducts = async () => {
+    try {
+      const response=await fetch('http://localhost:3000/products', {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      //console.log(JSON.stringify(response,null,4))
+
+const data=await response.json()
+//console.log(data[0].brand)
+
+
+    } catch (error) {
+
+
+      console.log('Error Message :' + error)
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
