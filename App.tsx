@@ -1,28 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import type {PropsWithChildren} from 'react';
-import {
-  Appbar,
-  Card,
-  Avatar,
-  IconButton,
-  ProgressBar,
-  MD3Colors,
-  
-  Button,
-} from 'react-native-paper';
+import {Appbar, Card, ProgressBar, MD3Colors, Button} from 'react-native-paper';
 import {
   SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
   Image,
-  Alert,
-  TextInput
+  TextInput,
 } from 'react-native';
-
+import AddProducts from './AddProduct';
 import {NavigationContainer} from '@react-navigation/native';
 import {
   BottomTabBar,
@@ -35,7 +22,7 @@ import {FlatList} from 'react-native-gesture-handler';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000/',
 });
 
@@ -55,30 +42,8 @@ export interface ProductProps {
 
 function App(): JSX.Element {
   const [products, setProducts] = useState<ProductProps | null>(null);
-  
-  const [id,setId]=useState()
-  const[title,setTitle]=useState()
-  const[description,setDescription]=useState()
-  const [price,setPrice]=useState()
-  const[thumbnail,setThumbnail]=useState()
-const [willadded,setWillAdded]=useState({})
-const newPro={
-  id:id,
-  title:title,
-  description:description,
-  price:price,
-  thumbnail:thumbnail
-}
-
-const addProduct=()=>{
- 
-
-//console.log(willadded)
-
-axiosInstance.post('products',newPro)
 
 
-}
 
   const axiosGetProducts = async () => {
     const response = await axiosInstance.get('products');
@@ -130,35 +95,16 @@ axiosInstance.post('products',newPro)
     );
   }
 
-  function AddProducts() {
-    return (
-      <SafeAreaView>
-        <View>
-          <Text>addProducts Page</Text>
-        </View>
-        <View style={{marginHorizontal:25,marginVertical:15,gap:15}}>
-<TextInput value={id} onChangeText={(text)=>{setId(text)}} placeholder='ID' style={{borderWidth:2,padding:10,borderRadius:10,color:'black'}}/>
-<TextInput value={title} onChangeText={(text)=>{setTitle(text)}} placeholder='Title' style={{borderWidth:2,padding:10,borderRadius:10,color:'black'}}/>
-<TextInput value={description} onChangeText={(text)=>{setDescription(text)}} placeholder='Description' style={{borderWidth:2,padding:10,borderRadius:10,color:'black'}}/>
-<TextInput value={price} onChangeText={(text)=>{setPrice(text)}} placeholder='Price' style={{borderWidth:2,padding:10,borderRadius:10,color:'black'}}/>
-<TextInput value={thumbnail} onChangeText={(text)=>{setThumbnail(text)}} placeholder='Price' style={{borderWidth:2,padding:10,borderRadius:10,color:'black'}}/>
-      
-        </View>
-        <Button mode='contained' onPress={()=>{addProduct()}} style={{width:200,marginHorizontal:25}}>Add Product</Button>
-      </SafeAreaView>
-    );
-  }
 
   function TabBar() {
     return (
       <Tab.Navigator>
-          <Tab.Screen name="AddProducts" component={AddProducts} />
+        <Tab.Screen name="AddProducts" component={AddProducts} />
         <Tab.Screen
           name="Products"
           component={Products}
           options={{headerShown: false}}
         />
-      
       </Tab.Navigator>
     );
   }
