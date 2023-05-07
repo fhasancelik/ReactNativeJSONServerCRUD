@@ -19,7 +19,7 @@ import {
 import {createStackNavigator} from '@react-navigation/stack';
 import axios from 'axios';
 import {FlatList} from 'react-native-gesture-handler';
-
+import Icon from 'react-native-vector-icons/Ionicons'
 export interface ProductProps {
     id: number;
     title: string;
@@ -39,6 +39,13 @@ export interface ProductProps {
   function ListProducts({navigation}) {
 
     const [products, setProducts] = useState<ProductProps | null>(null);
+
+
+    const deleteProduct=(id : number)=>{
+      axiosInstance.delete(`products/${id}`)
+      axiosGetProducts()
+    }
+
     const axiosGetProducts = async () => {
         const response = await axiosInstance.get('products');
         const data = response.data;
@@ -86,7 +93,15 @@ export interface ProductProps {
                     }}
                   />
                 )}
-                right={props => <Text>{item.price} $</Text>}
+                right={props => <View><Text>{item.price} $</Text>
+                
+               <TouchableOpacity onPress={()=>deleteProduct(item.id)}>
+
+               <Icon name='trash' size={20} color='red' />
+
+
+               </TouchableOpacity>
+                </View>}
               />
              </TouchableOpacity>
               );
