@@ -3,13 +3,19 @@
 import React, {createContext, useEffect, useState} from 'react';
 import fetchProducts from './getProduct';
 import deleteProduct from './deleteProducts';
+import updateProduct from './updateProduct';
 import { addProduct } from './addProduct';
 
 import {Alert} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const ProductsContext = createContext();
 
 const ProductsProvider = ({children}) => {
+
+
+
+
   const [products, setProducts] = useState([]);
   const getProducts = async () => {
     try {
@@ -46,13 +52,25 @@ const ProductsProvider = ({children}) => {
   };
 
 
+  const handleUpdate = async (productId, updatedProduct) => {
+    try {
+      await updateProduct(productId, updatedProduct);
+      Alert.alert('Success', 'Product updated successfully');
+      getProducts();
+    } catch (error) {
+      console.error('Error updating product:', error);
+      Alert.alert('Error', 'Failed to update product');
+    }
+  };
+
+
 
 
 
 
 
   return (
-    <ProductsContext.Provider value={{products, handleDelete,handleAdd}}>
+    <ProductsContext.Provider value={{products, handleDelete,handleAdd,handleUpdate}}>
       {children}
     </ProductsContext.Provider>
   );

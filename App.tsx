@@ -38,6 +38,8 @@ function App(): JSX.Element {
 
           options={{headerShown: false}}
         />
+
+      
         
       </Stack.Navigator>
     </NavigationContainer>

@@ -8,18 +8,20 @@ import {
 
 
 import {SafeAreaView, StyleSheet, View, Image,TextInput} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect,useContext} from 'react';
 
 import { axiosInstance } from '../utils/utils';
+import { ProductsContext } from '../context/ProductsProvider';
+import { useNavigation } from '@react-navigation/native';
 
 const DetailProduct = ({navigation, route}) => {
 
 
 
+const {handleUpdate}=useContext(ProductsContext)
 
 
-
-
+const nav=useNavigation()
 
 
 
@@ -41,9 +43,7 @@ const DetailProduct = ({navigation, route}) => {
     setProduct({...product, [key]: value});
   };
 
-  const productUpdate=(proID,proData)=>{
-    axiosInstance.put(`products/${proID}`,proData)
-  }
+
 
 
   return (
@@ -111,7 +111,8 @@ const DetailProduct = ({navigation, route}) => {
 <Button
         mode="contained"
         onPress={() => {
-     productUpdate(id,product);
+     handleUpdate(id,product)
+     nav.navigate('Products')
         }}
         style={{width: 200, marginHorizontal: 25}}>
         Update Product
