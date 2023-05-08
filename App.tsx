@@ -9,7 +9,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import DetailProduct from './src/screen/DetailProduct';
 import BottomNavigator from './src/navigator/BottomNavigator';
-import UserList from './src/screen/UserList';
+import UserList from './src/screen/ProductsList';
 
 import { ProductsProvider } from './src/context/ProductsProvider';
 

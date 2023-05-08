@@ -9,7 +9,7 @@ const fetchProducts = async () => {
     const response = await axiosInstance.get(`products`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching users:', error);
+    console.error('Error fetching products:', error);
     throw error;
   }
 };

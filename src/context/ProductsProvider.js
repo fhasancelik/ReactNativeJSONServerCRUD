@@ -22,7 +22,7 @@ const ProductsProvider = ({children}) => {
       const data = await fetchProducts();
       setProducts(data);
     } catch (error) {
-      console.error('Error setting users:', error);
+      console.error('Error setting product:', error);
     }
   };
   useEffect(() => {
@@ -32,11 +32,11 @@ const ProductsProvider = ({children}) => {
   const handleDelete = async productId => {
     try {
       await deleteProduct(productId);
-      Alert.alert('Success', 'User deleted successfully');
+      Alert.alert('Success', 'Product deleted successfully');
       getProducts();
     } catch (error) {
-      console.error('Error deleting user:', error);
-      Alert.alert('Error', 'Failed to delete user');
+      console.error('Error deleting product:', error);
+      Alert.alert('Error', 'Failed to delete product');
     }
   };
 

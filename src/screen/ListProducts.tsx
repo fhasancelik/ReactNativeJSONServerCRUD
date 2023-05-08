@@ -5,7 +5,7 @@ import {SafeAreaView, StyleSheet, View} from 'react-native';
 
 import {ProductsProvider} from '../context/ProductsProvider';
 
-import UserList from './UserList';
+import UserList from './ProductsList';
 
 function ListProducts({navigation}) {
   return (
