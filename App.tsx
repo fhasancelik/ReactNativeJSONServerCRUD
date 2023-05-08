@@ -11,6 +11,7 @@ import DetailProduct from './src/screen/DetailProduct';
 import BottomNavigator from './src/navigator/BottomNavigator';
 import UserList from './src/screen/UserList';
 
+import { ProductsProvider } from './src/context/ProductsProvider';
 
 const Stack = createStackNavigator();
 
@@ -21,7 +22,8 @@ function App(): JSX.Element {
 
 
   return (
-    <NavigationContainer>
+<ProductsProvider>
+<NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
           name="TabBar"
@@ -39,6 +41,7 @@ function App(): JSX.Element {
         
       </Stack.Navigator>
     </NavigationContainer>
+</ProductsProvider>
   );
 }
 

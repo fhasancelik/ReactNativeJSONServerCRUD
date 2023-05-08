@@ -1,17 +1,19 @@
-import {Appbar, Card, ProgressBar, MD3Colors, Button} from 'react-native-paper';
-import {axiosInstance} from '../utils/utils';
+import {Appbar, Button} from 'react-native-paper';
 
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import {SafeAreaView, StyleSheet, View, TextInput} from 'react-native';
+import React, {useState, useEffect,useContext} from 'react';
+
+import { ProductsContext } from '../context/ProductsProvider';
+
+import { ProductsProvider } from '../context/ProductsProvider';
+import { useNavigation } from '@react-navigation/native';
 
 const AddProduct = () => {
+
+const {handleAdd}=useContext(ProductsContext)
+
+const navigation=useNavigation()
+
   const [product, setProduct] = useState({
     title: '',
     description: '',
@@ -22,9 +24,19 @@ const AddProduct = () => {
   const onChangeText = (key: string, value: string) => {
     setProduct({...product, [key]: value});
   };
+  const handleAddProduct = () => {
+    handleAdd(product);
+    // Ürün eklendikten sonra yapılacak işlemler
+    // Örneğin, formları temizleme veya sayfayı yenileme gibi
+    setProduct({
+      title: '',
+      description: '',
+      price: 0,
+      thumbnail: '',
+    });
 
-  const addProduct = () => {
-    axiosInstance.post('products', product);
+    navigation.navigate('Products')
+
   };
 
   return (
@@ -74,19 +86,16 @@ const AddProduct = () => {
           }}
         />
       </View>
-      <Button
-        mode="contained"
-        onPress={() => {
-          addProduct();
-        }}
-        style={{width: 200, marginHorizontal: 25}}>
+  
+    <Button onPress={handleAddProduct} mode="contained" style={{width: 200, marginHorizontal: 25}}>
         Add Product
       </Button>
+
+ 
+
     </SafeAreaView>
   );
 };
 
 export default AddProduct;
 
-const styles = StyleSheet.create({});
-5522255050;

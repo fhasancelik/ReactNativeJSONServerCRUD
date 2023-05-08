@@ -16,9 +16,9 @@ function ListProducts({navigation}) {
         <Appbar.Action icon="reload" />
       </Appbar.Header>
       <View style={{flex: 1}}>
-        <ProductsProvider>
+ 
           <UserList />
-        </ProductsProvider>
+      
       </View>
     </SafeAreaView>
   );
