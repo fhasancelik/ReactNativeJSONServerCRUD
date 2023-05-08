@@ -1,6 +1,5 @@
 import {Appbar, Card, ProgressBar, MD3Colors, Button} from 'react-native-paper';
-
-import {axiosInstance} from './App';
+import {axiosInstance} from '../utils/utils';
 
 import {
   SafeAreaView,
@@ -13,23 +12,19 @@ import {
 import React, {useState, useEffect} from 'react';
 
 const AddProduct = () => {
-  const [id, setId] = useState();
-  const [title, setTitle] = useState();
-  const [description, setDescription] = useState();
-  const [price, setPrice] = useState();
-  const [thumbnail, setThumbnail] = useState();
+  const [product, setProduct] = useState({
+    title: '',
+    description: '',
+    price: 0,
+    thumbnail: '',
+  });
 
-  const newPro = {
-    id: id,
-    title: title,
-    description: description,
-    price: price,
-    thumbnail: thumbnail,
+  const onChangeText = (key: string, value: string) => {
+    setProduct({...product, [key]: value});
   };
-  const addProduct = () => {
-    //console.log(willadded)
 
-    axiosInstance.post('products', newPro);
+  const addProduct = () => {
+    axiosInstance.post('products', product);
   };
 
   return (
@@ -39,25 +34,7 @@ const AddProduct = () => {
       </Appbar.Header>
       <View style={{marginHorizontal: 25, marginVertical: 15, gap: 15}}>
         <TextInput
-          value={id}
-          onChangeText={text => {
-            setId(text);
-          }}
-          placeholder="ID"
-          editable={true}
-          style={{
-            borderWidth: 2,
-            padding: 10,
-            borderRadius: 10,
-            color: 'black',
-          }}
-        />
-
-        <TextInput
-          value={title}
-          onChangeText={text => {
-            setTitle(text);
-          }}
+          onChangeText={text => onChangeText('title', text)}
           placeholder="Title"
           style={{
             borderWidth: 2,
@@ -67,10 +44,7 @@ const AddProduct = () => {
           }}
         />
         <TextInput
-          value={description}
-          onChangeText={text => {
-            setDescription(text);
-          }}
+          onChangeText={text => onChangeText('description', text)}
           placeholder="Description"
           style={{
             borderWidth: 2,
@@ -80,10 +54,7 @@ const AddProduct = () => {
           }}
         />
         <TextInput
-          value={price}
-          onChangeText={text => {
-            setPrice(text);
-          }}
+          onChangeText={text => onChangeText('price', text)}
           placeholder="Price"
           style={{
             borderWidth: 2,
@@ -93,10 +64,7 @@ const AddProduct = () => {
           }}
         />
         <TextInput
-          value={thumbnail}
-          onChangeText={text => {
-            setThumbnail(text);
-          }}
+          onChangeText={text => onChangeText('thumbnail', text)}
           placeholder="Add thumbnail"
           style={{
             borderWidth: 2,
@@ -121,3 +89,4 @@ const AddProduct = () => {
 export default AddProduct;
 
 const styles = StyleSheet.create({});
+5522255050;
