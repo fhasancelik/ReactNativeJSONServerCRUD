@@ -1,6 +1,6 @@
 
 import React,{useContext} from 'react'
-import { UserContext } from '../context/ProductsProvider'
+import {ProductsContext } from '../context/ProductsProvider'
 import {Appbar, Card, ProgressBar, MD3Colors, Button} from 'react-native-paper';
 import {
     SafeAreaView,
@@ -18,11 +18,11 @@ import { useNavigation } from '@react-navigation/native';
 
 
 const UserList = () => {
-    const { users,handleDelete } = useContext(UserContext);
+    const { products,handleDelete } = useContext(ProductsContext);
     const navigation=useNavigation()
   return (
     <FlatList
-            data={users}
+            data={products}
             ListEmptyComponent={() => {
               return (
                 <View>

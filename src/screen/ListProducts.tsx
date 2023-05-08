@@ -3,7 +3,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Appbar} from 'react-native-paper';
 import {SafeAreaView, StyleSheet, View} from 'react-native';
 
-import {UserProvider} from '../context/ProductsProvider';
+import {ProductsProvider} from '../context/ProductsProvider';
 
 import UserList from './UserList';
 
@@ -16,9 +16,9 @@ function ListProducts({navigation}) {
         <Appbar.Action icon="reload" />
       </Appbar.Header>
       <View style={{flex: 1}}>
-        <UserProvider>
+        <ProductsProvider>
           <UserList />
-        </UserProvider>
+        </ProductsProvider>
       </View>
     </SafeAreaView>
   );

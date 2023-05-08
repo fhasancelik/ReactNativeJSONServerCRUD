@@ -1,19 +1,14 @@
 // UserContext.js
 
-import React, { createContext, useEffect, useState } from 'react';
+import React, {createContext, useEffect, useState} from 'react';
 import fetchUsers from './getProduct';
 import deleteProduct from './deleteProducts';
 
-
-import {
-
-    Alert
-  } from 'react-native';
-import { axiosInstance } from '../utils/utils';
+import {Alert} from 'react-native';
 
 const ProductsContext = createContext();
 
-const ProductsProvider = ({ children }) => {
+const ProductsProvider = ({children}) => {
   const [products, setProducts] = useState([]);
   const getProducts = async () => {
     try {
@@ -24,13 +19,10 @@ const ProductsProvider = ({ children }) => {
     }
   };
   useEffect(() => {
-
-
     getProducts();
   }, []);
 
-
-  const handleDelete = async (productId) => {
+  const handleDelete = async productId => {
     try {
       await deleteProduct(productId);
       Alert.alert('Success', 'User deleted successfully');
@@ -41,14 +33,11 @@ const ProductsProvider = ({ children }) => {
     }
   };
 
-
-
-
   return (
-    <ProductsContext.Provider value={{users: products,handleDelete}}>
+    <ProductsContext.Provider value={{products, handleDelete}}>
       {children}
     </ProductsContext.Provider>
   );
 };
 
-export { ProductsProvider as UserProvider, ProductsContext as UserContext };
+export {ProductsProvider, ProductsContext };
