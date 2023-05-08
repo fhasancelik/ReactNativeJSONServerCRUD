@@ -4,7 +4,7 @@ import { axiosInstance } from "../utils/utils";
 
 
 
-const fetchUsers = async () => {
+const fetchProducts = async () => {
   try {
     const response = await axiosInstance.get(`products`);
     return response.data;
@@ -15,4 +15,4 @@ const fetchUsers = async () => {
 };
 
 
-export default fetchUsers;
+export default fetchProducts;

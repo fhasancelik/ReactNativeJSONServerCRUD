@@ -1,7 +1,7 @@
 // UserContext.js
 
 import React, {createContext, useEffect, useState} from 'react';
-import fetchUsers from './getProduct';
+import fetchProducts from './getProduct';
 import deleteProduct from './deleteProducts';
 
 import {Alert} from 'react-native';
@@ -12,7 +12,7 @@ const ProductsProvider = ({children}) => {
   const [products, setProducts] = useState([]);
   const getProducts = async () => {
     try {
-      const data = await fetchUsers();
+      const data = await fetchProducts();
       setProducts(data);
     } catch (error) {
       console.error('Error setting users:', error);
