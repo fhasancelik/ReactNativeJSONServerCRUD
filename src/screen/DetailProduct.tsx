@@ -8,9 +8,9 @@ import {
 
 
 import {SafeAreaView, StyleSheet, View, Image,TextInput} from 'react-native';
-import React, {useState, useEffect,useContext} from 'react';
+import React, {useState, useContext} from 'react';
 
-import { axiosInstance } from '../utils/utils';
+
 import { ProductsContext } from '../context/ProductsProvider';
 import { useNavigation } from '@react-navigation/native';
 
@@ -126,4 +126,4 @@ const nav=useNavigation()
 
 export default DetailProduct;
 
-const styles = StyleSheet.create({});
+

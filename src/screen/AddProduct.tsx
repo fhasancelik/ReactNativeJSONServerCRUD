@@ -26,8 +26,7 @@ const navigation=useNavigation()
   };
   const handleAddProduct = () => {
     handleAdd(product);
-    // Ürün eklendikten sonra yapılacak işlemler
-    // Örneğin, formları temizleme veya sayfayı yenileme gibi
+
     setProduct({
       title: '',
       description: '',

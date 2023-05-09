@@ -1,21 +1,14 @@
-// UserContext.js
-
 import React, {createContext, useEffect, useState} from 'react';
 import fetchProducts from './getProduct';
 import deleteProduct from './deleteProducts';
 import updateProduct from './updateProduct';
-import { addProduct } from './addProduct';
+import addProduct from './addProduct';
 
 import {Alert} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 
 const ProductsContext = createContext();
 
 const ProductsProvider = ({children}) => {
-
-
-
-
   const [products, setProducts] = useState([]);
   const getProducts = async () => {
     try {
@@ -39,8 +32,7 @@ const ProductsProvider = ({children}) => {
       Alert.alert('Error', 'Failed to delete product');
     }
   };
-
-  const handleAdd = async (productData) => {
+  const handleAdd = async productData => {
     try {
       const newProduct = await addProduct(productData);
       setProducts([...products, newProduct]);
@@ -50,7 +42,6 @@ const ProductsProvider = ({children}) => {
       Alert.alert('Hata', 'Ürün eklenemedi');
     }
   };
-
 
   const handleUpdate = async (productId, updatedProduct) => {
     try {
@@ -63,17 +54,12 @@ const ProductsProvider = ({children}) => {
     }
   };
 
-
-
-
-
-
-
   return (
-    <ProductsContext.Provider value={{products, handleDelete,handleAdd,handleUpdate}}>
+    <ProductsContext.Provider
+      value={{products, handleDelete, handleAdd, handleUpdate}}>
       {children}
     </ProductsContext.Provider>
   );
 };
 
-export {ProductsProvider, ProductsContext };
+export {ProductsProvider, ProductsContext};

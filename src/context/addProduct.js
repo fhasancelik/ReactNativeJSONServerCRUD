@@ -15,4 +15,4 @@ const addProduct = async (productData) => {
   }
 };
 
-export { addProduct };
+export default addProduct ;
