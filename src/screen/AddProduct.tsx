@@ -10,20 +10,17 @@ import { useNavigation } from '@react-navigation/native';
 
 const AddProduct = () => {
 
-const {handleAdd}=useContext(ProductsContext)
+const {handleAdd,setProduct,product}=useContext(ProductsContext)
 
 const navigation=useNavigation()
 
-  const [product, setProduct] = useState({
-    title: '',
-    description: '',
-    price: 0,
-    thumbnail: '',
-  });
+
 
   const onChangeText = (key: string, value: string) => {
     setProduct({...product, [key]: value});
   };
+  
+  
   const handleAddProduct = () => {
     handleAdd(product);
 

@@ -9,7 +9,26 @@ import {Alert} from 'react-native';
 const ProductsContext = createContext();
 
 const ProductsProvider = ({children}) => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]); 
+  
+  
+  const [product, setProduct] = useState({
+    title: '',
+    description: '',
+    price: 0,
+    thumbnail: '',
+  });
+
+
+
+  const [upproduct, setUpproduct] = useState({
+    id:'',
+    title: '',
+    description: '',
+    price: 0,
+    thumbnail: '',
+  });
+
   const getProducts = async () => {
     try {
       const data = await fetchProducts();
@@ -32,9 +51,9 @@ const ProductsProvider = ({children}) => {
       Alert.alert('Error', 'Failed to delete product');
     }
   };
-  const handleAdd = async productData => {
+  const handleAdd = async product => {
     try {
-      const newProduct = await addProduct(productData);
+      const newProduct = await addProduct(product);
       setProducts([...products, newProduct]);
       Alert.alert('Başarılı', 'Ürün başarıyla eklendi');
     } catch (error) {
@@ -56,7 +75,7 @@ const ProductsProvider = ({children}) => {
 
   return (
     <ProductsContext.Provider
-      value={{products, handleDelete, handleAdd, handleUpdate}}>
+      value={{products, handleDelete, handleAdd, handleUpdate,product,setProduct,upproduct,setUpproduct}}>
       {children}
     </ProductsContext.Provider>
   );

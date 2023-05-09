@@ -18,7 +18,7 @@ const DetailProduct = ({navigation, route}) => {
 
 
 
-const {handleUpdate}=useContext(ProductsContext)
+const {handleUpdate,setUpproduct,upproduct}=useContext(ProductsContext)
 
 
 const nav=useNavigation()
@@ -31,16 +31,10 @@ const nav=useNavigation()
   const price= route.params.item.price
   const thumbnail= route.params.item.thumbnail
 
-  const [product, setProduct] = useState({
-    id:'',
-    title: '',
-    description: '',
-    price: 0,
-    thumbnail: '',
-  });
+
 
   const onChangeText = (key: string, value: string) => {
-    setProduct({...product, [key]: value});
+    setUpproduct({...upproduct, [key]: value});
   };
 
 
@@ -111,7 +105,7 @@ const nav=useNavigation()
 <Button
         mode="contained"
         onPress={() => {
-     handleUpdate(id,product)
+     handleUpdate(id,upproduct)
      nav.navigate('Products')
         }}
         style={{width: 200, marginHorizontal: 25}}>

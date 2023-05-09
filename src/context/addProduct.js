@@ -1,11 +1,6 @@
+import {axiosInstance} from '../utils/utils';
 
-
-
-
-import { axiosInstance } from "../utils/utils";
-
-// Ürün ekleme işlemi
-const addProduct = async (productData) => {
+const addProduct = async productData => {
   try {
     const response = await axiosInstance.post(`products`, productData);
     const newProduct = response.data;
@@ -15,4 +10,4 @@ const addProduct = async (productData) => {
   }
 };
 
-export default addProduct ;
+export default addProduct;
